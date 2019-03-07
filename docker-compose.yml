@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  codeserver:
+    build: .
+    ports:
+      - 8443:8443
+#     networks:
+#       host:
+
+# networks:
+#   host:
+#     external: true
