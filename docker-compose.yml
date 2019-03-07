@@ -1,14 +1,25 @@
 version: '3.7'
-
 services:
-  codeserver:
-    build: .
-    ports:
-      - 8443:8443
-    
-#     networks:
-#       host:
+    codeserver:
+        image: codercom/code-server
+        container_name: code
+        volumes:
+            - {path/to/your/persistent/projects}:/root/projects
+            - {path/to/your/persistent/data}:/data
+#        If u use https://github.com/jwilder/nginx-proxy (recommended)
+#        environment:
+#            VIRTUAL_HOST: code.m-ko.de
+#            VIRTUAL_PORT: 8443
+        ports:
+          # With SSL
+          - "443:8443"
+          # With HTTP
+          #- "80:8443"
+        command: code-server --allow-http --no-auth
+#       Connect via network
+#        networks:
+#            outpost_network:
 
-# networks:
-#   host:
-#     external: true
+#networks:
+#    outpost_network:
+#        external: true
