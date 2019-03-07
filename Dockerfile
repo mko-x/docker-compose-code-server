@@ -1,18 +1,25 @@
-FROM ubuntu-debootstrap
+FROM node:8.15.1-jessie-slim
 LABEL maintainer="Markus Kosmal - m-ko.de"
 
-COPY ./code-server /usr/bin/code-server
+RUN apt-get update && \
+    apt-get install -y -qq libxkbfile-dev libsecret-1-dev
 
-RUN apt-get update -qq && \
-    apt-get install -y -qq apt-utils
+# Ensure latest yarn.
+RUN npm install -g yarn
 
-RUN chmod +rx /usr/bin/code-server && \
+# In the future, we can use https://github.com/yarnpkg/rfcs/pull/53 to make it use the node_modules
+# directly which should be faster.
+WORKDIR /src
+COPY . .
+RUN yarn
+RUN yarn task build:server:binary
+
+# We deploy with ubuntu so that devs have a familiar environemnt.
+FROM ubuntu-debootstrap:18.10
+RUN apt-get update -y -qq && \
     apt-get install -y -qq openssl net-tools
-
-RUN mkdir -p /opt/code-start && \
-    echo "Empty project provided for startup by m-ko.de" > /opt/code-start/README.md && \
-    chmod -R +rwx /opt/code-start
-          
+WORKDIR /root/project
+COPY --from=0 /src/packages/server/cli-linux /usr/local/bin/code-server
 EXPOSE 8443
-
-ENTRYPOINT [ "code-server", "/opt/code-start" ]
+# Unfortunately `.` does not work with code-server.
+CMD code-server $PWD
