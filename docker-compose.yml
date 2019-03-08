@@ -8,7 +8,7 @@ services:
             - {path/to/your/persistent/data}:/data
 #        If u use https://github.com/jwilder/nginx-proxy (recommended)
 #        environment:
-#            VIRTUAL_HOST: code.m-ko.de
+#            VIRTUAL_HOST: your.domain.tld
 #            VIRTUAL_PORT: 8443
         ports:
           # With SSL
