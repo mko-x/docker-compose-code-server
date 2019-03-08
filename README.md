@@ -1,5 +1,5 @@
-# docker-code-server
-The code-server project dockerized. Run vscode remote. 
+# docker-compose-code-server
+The code-server project in docker-compose. Run vscode remote. 
 
 # Credits
 
