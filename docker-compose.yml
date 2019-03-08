@@ -15,7 +15,7 @@ services:
           - "443:8443"
           # With HTTP
           #- "80:8443"
-        command: code-server --allow-http --no-auth
+        command: code-server --no-auth # if using proxy add: --allow-http
 #       Connect via network
 #        networks:
 #            outpost_network:
