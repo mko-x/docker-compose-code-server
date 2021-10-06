@@ -4,6 +4,7 @@ The code-server project in docker-compose. Run Visual Studio Code remote on a se
 # Run
 ```bash
 git clone https://github.com/mko-x/docker-compose-code-server.git
+//use your favourite editor to edit properties in docker-compose.yml e.g. project path and ports
 cd docker-compose-code-server
 docker-compose up -d
 ```
